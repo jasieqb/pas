@@ -29,6 +29,6 @@ elif len(message) > 20:
     message = message[:20]
 
 s.send(message.encode())
-data = s.recv(1024)
+data = s.recv(20)
 s.close()
 print(data)
