@@ -27,17 +27,28 @@ import socket
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect(("212.182.25.252", 2908))
-message = "Hello, server!"
+message = "HELLO SERVER: LONG MESSAGE .......!"
 
 if len(message) < 20:
     message = message.ljust(20)
 
 elif len(message) > 20:
     message = message[:20]
-data = b""
-for i in range(20):
-    s.send(message[i].encode('utf-8'))
-    data += s.recv(20).decode('utf-8')
+sent = 0
+
+while sent < 20:
+    sent += s.send(message[sent:].encode())
+
+print(f'sent: {sent} bytes')
+
+data = b''
+received = 0
+
+while received < 20:
+    data += s.recv(20 - received)
+    received = len(data)
+
+print(f'received: {received} bytes')
 
 s.close()
 print(data)
