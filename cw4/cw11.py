@@ -8,18 +8,19 @@ import socket
 
 def checkA(mes: str) -> str:
     text = mes.split(';')
+    print(text)
     if len(text) != 9:
-        return 'BAD_SYNTAX'
+        return 'BAD_SYNTAX1'
     if text[0] != 'zad15odpA':
-        return 'BAD_SYNTAX'
+        return 'BAD_SYNTAX2'
     if text[1] != 'ver':
-        return 'BAD_SYNTAX'
-    if text[3] != 'scrip':
-        return 'BAD_SYNTAX'
+        return 'BAD_SYNTAX3'
+    if text[3] != 'srcip':
+        return 'BAD_SYNTAX4'
     if text[5] != 'dstip':
-        return 'BAD_SYNTAX'
+        return 'BAD_SYNTAX5'
     if text[7] != 'type':
-        return 'BAD_SYNTAX'
+        return 'BAD_SYNTAX6'
 
     ver = int(text[2])
     scrip = text[4]
@@ -65,9 +66,9 @@ try:
         print('Wiadomosc:', data)
 
         if data.startswith(b'zad15odpA'):
-            s.sendto(checkA(data.decode('utf-8')), addr)
+            s.sendto(checkA(data.decode('utf-8')).encode(), addr)
         elif data.startswith(b'zad15odpB'):
-            s.sendto(chcekB(data.decode('utf-8')), addr)
+            s.sendto(chcekB(data.decode('utf-8')).encode(), addr)
         else:
             s.sendto('BAD_SYNTAX', addr)
 finally:

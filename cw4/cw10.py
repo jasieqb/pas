@@ -14,31 +14,31 @@ try:
         data, addr = s.recvfrom(1024)
         print('Odebrano wiadomosc od', addr)
         print('Wiadomosc:', data)
-
+        data = data.decode('utf-8').strip()
         tmp = data.split(';')
         if len(tmp) != 7:
-            s.sendto('BAD_SYNTAX', addr)
+            s.sendto(b'BAD_SYNTAX', addr)
             continue
 
         if tmp[0] != 'zad13odp':
-            s.sendto('BAD_SYNTAX', addr)
+            s.sendto(b'BAD_SYNTAX', addr)
             continue
 
         if tmp[1] != 'src':
-            s.sendto('BAD_SYNTAX', addr)
+            s.sendto(b'BAD_SYNTAX', addr)
             continue
 
         if tmp[3] != 'dst':
-            s.sendto('BAD_SYNTAX', addr)
+            s.sendto(b'BAD_SYNTAX', addr)
             continue
 
         if tmp[5] != 'data':
-            s.sendto('BAD_SYNTAX', addr)
+            s.sendto(b'BAD_SYNTAX', addr)
             continue
 
-        if data == 'zad14odp;src;2900;dst;35211;data;hello :)':
-            s.sendto('TAK', addr)
+        if data == 'zad13odp;src;2900;dst;35211;data;hello :)':
+            s.sendto(b'TAK', addr)
         else:
-            s.sendto('NIE', addr)
+            s.sendto(b'NIE', addr)
 finally:
     s.close()

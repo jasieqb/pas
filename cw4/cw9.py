@@ -6,36 +6,36 @@ import socket
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.bind(('localhost', 2910))
 
-try: 
+try:
     while True:
         data, addr = s.recvfrom(1024)
         print('Odebrano wiadomosc od', addr)
         print('Wiadomosc:', data)
-
+        data = data.decode('utf-8')
         tmp = data.split(';')
         if len(tmp) != 7:
-            s.sendto('BAD_SYNTAX', addr)
+            s.sendto(b'BAD_SYNTAX', addr)
             continue
 
         if tmp[0] != 'zad14odp':
-            s.sendto('BAD_SYNTAX', addr)
+            s.sendto(b'BAD_SYNTAX', addr)
             continue
 
         if tmp[1] != 'src':
-            s.sendto('BAD_SYNTAX', addr)
+            s.sendto(b'BAD_SYNTAX', addr)
             continue
 
         if tmp[3] != 'dst':
-            s.sendto('BAD_SYNTAX', addr)
+            s.sendto(b'BAD_SYNTAX', addr)
             continue
 
         if tmp[5] != 'data':
-            s.sendto('BAD_SYNTAX', addr)
+            s.sendto(b'BAD_SYNTAX', addr)
             continue
 
         if data == 'zad14odp;src;60788;dst;2901;data;programming in python is fun':
-            s.sendto('TAK', addr)
+            s.sendto(b'TAK', addr)
         else:
-            s.sendto('NIE', addr)
+            s.sendto(b'NIE', addr)
 finally:
     s.close()

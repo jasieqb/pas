@@ -5,12 +5,13 @@
 import socket
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.bind(('localhost', 1234))
+s.bind(('localhost', 1238))
 
 while True:
     try:
         data, addr = s.recvfrom(1024)
         print('Connection from', addr)
-        s.sendto(socket.gethostbyaddr(data)[0], addr)
+        print('Data:', data)
+        s.sendto(socket.gethostbyaddr(data)[0].encode(), addr)
     except KeyboardInterrupt:
         s.close()

@@ -3,8 +3,8 @@
 
 import socket
 
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.bind(('localhost', 1234))
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind(('localhost', 1240))
 
 while True:
     try:
@@ -14,4 +14,3 @@ while True:
         s.sendto(data, addr)
     except KeyboardInterrupt:
         s.close()
-

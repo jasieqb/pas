@@ -3,7 +3,7 @@
 
 import socket
 
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind(('localhost', 1234))
 
 while True:

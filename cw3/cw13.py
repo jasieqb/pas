@@ -44,7 +44,7 @@ def parse_udp_packet(packet):
 def send_to_server(packet: str):
     import socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.connect(('212.182.25.252', 2910))
+    sock.connect(('localhost', 2910))
     sock.send(packet.encode('utf-8'))
     data = sock.recv(1024)
     print(data.decode('utf-8'))

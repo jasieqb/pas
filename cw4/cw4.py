@@ -5,17 +5,18 @@
 import socket
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.bind(('localhost', 1234))
+s.bind(('localhost', 1237))
 
 while True:
     try:
         data, addr = s.recvfrom(1024)
         print('Connection from', addr)
 
-        data = data.decode('utf-8')
-        try:
-            data = int(data)
-        except ValueError:
+        data = data.decode('utf-8').strip().split(' ')
+        if len(data) != 3:
+            data = 'Wrong data'
+            data = str(data).encode('utf-8')
+            s.sendto(data, addr)
             continue
 
         data[0] = int(data[0])

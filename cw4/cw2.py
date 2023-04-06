@@ -7,7 +7,7 @@
 import socket
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(('localhost', 1234))
+s.bind(('localhost', 1235))
 s.listen(5)
 
 while True:

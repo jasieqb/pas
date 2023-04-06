@@ -80,7 +80,7 @@ if __name__ == '__main__':
     print(odpA)
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.connect(('212.182.25.252', 2911))
+    sock.connect(('localhost', 2911))
     sock.send(odpA.encode('utf-8'))
     data = sock.recv(1024)
     data = data.decode('utf-8')

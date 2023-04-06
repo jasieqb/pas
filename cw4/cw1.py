@@ -16,6 +16,7 @@ while True:
     try:
         client, addr = s.accept()
         print('Connection from', addr)
+        data = client.recv(1024)
         client.send(time.ctime().encode('utf-8'))
         client.send('\n'.encode('utf-8'))
         client.close()

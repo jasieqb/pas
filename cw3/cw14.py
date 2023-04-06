@@ -31,7 +31,7 @@ def parse_tcp_packate(packet: str):
 def send_to_server(packet: str):
     import socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.connect(('212.182.25.252', 2909))
+    sock.connect(('localhost', 2909))
     sock.send(packet.encode('utf-8'))
     data = sock.recv(1024)
     print(data.decode('utf-8'))
