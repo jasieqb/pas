@@ -17,14 +17,14 @@ def post_to_serve(host, port, path):
             input("Enter data to send (value2): ")
         size_to_send = len(to_send)
 
-        request = f"POST {path} HTTP/1.1\r\nHost: {host}\r\nAccept: */*\r\nAccept-Encoding: gzip, deflate, br\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length: {size_to_send}\r\n\r\n{to_send}"
+        request = f"POST {path} HTTP/1.1\r\nHost: {host}\r\nAccept: */*\r\nConnection: keep-alive\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length: {size_to_send}\r\n\r\n{to_send}"
         s.send(request.encode())
 
         print("Sending...")
         print(request)
 
         print("Receiving...")
-        time.sleep(1)
+        time.sleep(5)
         data = b""
         data = s.recv(4096)
 
