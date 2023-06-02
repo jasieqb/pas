@@ -15,6 +15,7 @@ def post_to_serve(host, port, path):
         to_send = input("Enter data to send (value1): ")
         to_send = 'x=' + to_send + '&y=' + \
             input("Enter data to send (value2): ")
+        print(to_send)
         size_to_send = len(to_send)
 
         request = f"POST {path} HTTP/1.1\r\nHost: {host}\r\nAccept: */*\r\nConnection: keep-alive\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length: {size_to_send}\r\n\r\n{to_send}"
