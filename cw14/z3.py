@@ -85,9 +85,27 @@ class IrcClient:
         self.cli = SimpleWeatherApi(api_key)
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.connect((self.host, self.port), )
-        self.s = ssl.wrap_socket(self.s, ssl_version=ssl.PROTOCOL_TLSv1_2,
-                                 cert_reqs=ssl.CERT_NONE)
 
+        self.ctx = ssl.create_default_context()
+        self.ctx.check_hostname = True
+        self.ctx.verify_mode = ssl.CERT_REQUIRED
+        self.ctx.load_verify_locations("ca.pem")
+        # self.ctx.protocol = ssl.PROTOCOL_TLSv1_2
+        # self.ctx.load_default_certs()
+
+        self.s = self.ctx.wrap_socket(
+            self.s, server_hostname=self.host)
+        # self.s = ssl.wrap_socket(self.s, server_hostname=self.host,)
+        #  cert_reqs=ssl.CERT_NONE)
+
+        cert = self.s.getpeercert()
+        print(cert["issuer"])
+        if not cert or ssl.match_hostname(cert, self.host):
+            raise Exception("Invalid certificate")
+        # if not cert["issuer"] == cert["subject"]:
+            # raise Exception("Invalid certificate")
+
+        ### INIT MESSAGES ###
         self.sendall(("NICK %s\r\n" % self.nick).encode("utf-8"))
         self.sendall(("USER %s %s %s :%s\r\n" % (self.user, self.user,
                                                  self.user, self.realname)).encode("utf-8"))
@@ -105,7 +123,7 @@ class IrcClient:
 
     def recv(self):
         data = self.s.recv(1024)
-        # print(f'< {data}')
+        print(f'< {data}')
         return data.decode("utf-8")
 
     def close(self):
