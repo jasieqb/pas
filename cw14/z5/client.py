@@ -9,7 +9,7 @@ def main():
     ctx = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
     # ctx.load_cert_chain(certfile="cert.pem", keyfile="key.pem")
     ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
+    # ctx.verify_mode = ssl.CERT_NONE
     # ctx.load_verify_locations("cert.pem")
     s = ctx.wrap_socket(s, server_hostname="localhost")
 
