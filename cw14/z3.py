@@ -153,7 +153,11 @@ class IrcClient:
             self.send_message("Commands: !hello, !quit, !help\r\n")
 
         if mess.startswith("!weather"):
-            city = mess.split(" ")[1].strip()
+            try:
+                city = mess.split(" ")[1].strip()
+            except IndexError:
+                self.send_message("No city provided")
+                return
             # print(city.strip())
             status, mess = self.cli.get_weather(city)
 
