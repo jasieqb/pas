@@ -5,6 +5,7 @@ HOST = 'localhost'
 PORT = 143
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.connect((HOST, PORT))
     s.send(b'A1 LOGIN test test\r\n')
     s.recv(1024)
     print(s.recv(1024).decode())
