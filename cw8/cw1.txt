@@ -1,0 +1,30 @@
+➜  ~ telnet localhost 1431
+Trying ::1...
+Connection failed: Połączenie odrzucone
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+* OK IMAP4rev1 Service Ready
+LOGIN test test
+* OK Logged in
+LIST "" *
+* LIST () "." "INBOX"
+* 3 EXISTS
+* 3 RECENT
+* LIST () "." "Sent"
+* 0 EXISTS
+* 0 RECENT
+* OK Completed (Success)
+A1 FETCH 1 
+* 1 FETCH (BODY[TEXT] 76
+Subject: Test email
+From: John Doe
+To: Jane Doe
+
+This is a test email.
+)
+STORE 1 \Seen
+* OK Store completed
+LOGOUT
+* BYE IMAP4rev1 Server logging out
+Connection closed by foreign host.
